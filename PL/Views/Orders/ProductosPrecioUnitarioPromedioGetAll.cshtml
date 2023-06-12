@@ -1,0 +1,73 @@
+﻿@model ML.Product
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="=col-md-12">
+            <h1 style="text-align:center; color:#3dc7e6; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                Promedio del precio unitario de los artículos de las categorías cuyo
+                promedio del precio unitario es menor a 50.
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="tblClientes" class="table table-hover table-responsive">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>ProductID</td>
+                        <td>ProductName</td>
+                        <td>CategoryID</td>
+                        <td>CategoryName</td>
+                        <td>Promedio</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Product product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.ProductID</td>
+                            <td>@product.ProductName</td>
+                            <td>@product.Categories.CategoryID</td>
+                            <td>@product.Categories.CategoryName</td>
+                            <td>@product.PromedioPrecioUnitario</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.material.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tblClientes').DataTable({
+                searching: false,
+                "lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
+                autoWidth: false,
+                columnDefs: [
+                    {
+                        targets: ['_all'],
+                        className: 'mdc-data-table__cell',
+                    },
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                },
+            });
+        });
+
+    </script>
+}
